@@ -1,0 +1,28 @@
+# Raw captures stay private (evidence only, never published)
+data/raw/*
+!data/raw/.gitkeep
+
+# Secrets and local settings
+.env
+.claude/settings.local.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Scrapy and Playwright working files
+.scrapy/
+httpcache/
+playwright-report/
+test-results/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

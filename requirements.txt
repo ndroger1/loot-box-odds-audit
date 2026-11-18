@@ -1,0 +1,10 @@
+pandas
+scipy
+statsmodels
+krippendorff
+requests
+playwright
+scrapy
+python-dotenv
+jupyter
+matplotlib
