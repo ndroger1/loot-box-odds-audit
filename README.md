@@ -54,6 +54,8 @@ pytest                  # offline checks, no network
 
 Run the notebooks in `notebooks/` in numeric order, top to bottom. Each one reads from the outputs of the one before it. The same steps can be run from the command line with `python run_pipeline.py <step>` (run it with no step to see the list).
 
+To run collection in Google Colab instead, use `notebooks/00_colab_setup.ipynb`. It saves results to your Google Drive; see `notebooks/README.md` for how to open it and its limits.
+
 ## Data collection ethics
 
 - Official APIs are used wherever they exist; scraping is a fallback.

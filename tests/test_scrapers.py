@@ -53,3 +53,26 @@ def test_domains():
 def test_terms_gate_blocks_unchecked_sources():
     with pytest.raises(SourceNotPermitted):
         require_permitted("playstation")
+
+
+def test_crawl_parts_merge_latest_run_wins(tmp_path):
+    import json
+    import os
+
+    from scrapers.publisher.crawl import merge, part_path, read_jsonl
+
+    parts = tmp_path / "parts"
+    parts.mkdir()
+    assert part_path("gb,KR", parts).name == "GB-KR.jsonl"
+    assert part_path("", parts).name == "BE-GB-KR-US.jsonl"
+
+    def write(name, rows, mtime):
+        path = parts / name
+        path.write_text("".join(json.dumps(r) + "\n" for r in rows), encoding="utf-8")
+        os.utime(path, (mtime, mtime))
+
+    write("GB-KR.jsonl", [{"market": "KR", "url": "old-kr"}, {"market": "GB", "url": "gb"}], 1000)
+    write("KR.jsonl", [{"market": "KR", "url": "new-kr"}], 2000)
+    out = tmp_path / "pages.jsonl"
+    assert merge(parts, out) == 2
+    assert sorted(r["url"] for r in read_jsonl(out)) == ["gb", "new-kr"]

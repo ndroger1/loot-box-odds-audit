@@ -3,6 +3,8 @@
 Keep labels here so scrapers, coding rules, and notebooks all use the same codes.
 """
 
+import os
+
 # ISO 3166-1 alpha-2 market codes and their regulatory regime
 MARKETS = {
     "KR": "legal_mandate",
@@ -19,6 +21,11 @@ PLATFORMS = {
     "xbox": 25,         # Xbox Store best-sellers
     "nintendo": 25,     # Nintendo eShop best-sellers
 }
+
+# Optional cap for test runs (e.g. CHART_LIMIT=5 for the week 3 five-title test).
+# Leave unset on the snapshot date.
+if os.environ.get("CHART_LIMIT", "").strip():
+    PLATFORMS = {k: min(v, int(os.environ["CHART_LIMIT"])) for k, v in PLATFORMS.items()}
 
 # If a store's chart collector fails outright, fall back to this many titles
 # from a chart tracker rather than delaying the analysis.
