@@ -1,0 +1,75 @@
+category,language,term,is_regex,note
+odds,en,drop rate,no,
+odds,en,drop rates,no,
+odds,en,probability,no,
+odds,en,probabilities,no,
+odds,en,odds,no,"Broad; disclosure is confirmed only with numeric rates (see rules)"
+odds,en,chance of obtaining,no,
+odds,en,acquisition rate,no,
+odds,en,appearance rate,no,
+odds,en,obtain rate,no,
+odds,en,item rates,no,
+odds,en,rates of obtaining,no,
+odds,en,gacha rates,no,
+odds,en,pull rates,no,
+odds,ko,확률,no,"probability"
+odds,ko,확률 정보,no,"probability information"
+odds,ko,확률형 아이템,no,"probability-type item (term used in Korean law)"
+odds,ko,획득 확률,no,"acquisition probability"
+odds,ko,등장 확률,no,"appearance probability"
+odds,nl,kans,no,"Broad; confirmed only with numeric rates"
+odds,nl,kansen,no,
+odds,nl,waarschijnlijkheid,no,
+odds,nl,dropkans,no,
+odds,nl,dropkansen,no,
+odds,fr,probabilité,no,
+odds,fr,probabilités,no,
+odds,fr,taux d'obtention,no,
+odds,fr,taux de drop,no,
+odds,fr,chances d'obtenir,no,
+odds,de,wahrscheinlichkeit,no,
+odds,de,wahrscheinlichkeiten,no,
+odds,de,drop-rate,no,
+odds,de,droprate,no,
+odds,de,gewinnchance,no,
+odds,de,erhaltchance,no,
+lootbox,en,loot box,no,
+lootbox,en,loot boxes,no,
+lootbox,en,lootbox,no,
+lootbox,en,gacha,no,
+lootbox,en,random item,no,
+lootbox,en,random items,no,
+lootbox,en,booster pack,no,
+lootbox,en,card pack,no,
+lootbox,en,summon,no,"Broad; loot box presence still needs store label or odds evidence"
+lootbox,en,crate,no,
+lootbox,en,mystery box,no,
+lootbox,en,spin the wheel,no,
+lootbox,ko,확률형,no,
+lootbox,ko,뽑기,no,"draw / gacha"
+lootbox,ko,가챠,no,
+lootbox,ko,랜덤 박스,no,
+lootbox,nl,lootbox,no,
+lootbox,nl,lootboxen,no,
+lootbox,nl,willekeurige items,no,
+lootbox,fr,coffre,no,"Broad"
+lootbox,fr,objets aléatoires,no,
+lootbox,fr,boîte à butin,no,
+lootbox,de,beutekiste,no,
+lootbox,de,zufällige gegenstände,no,
+label,en,includes random items,no,"ESRB / PEGI / IARC interactive element"
+label,en,in-game purchases (includes random items),no,
+label,ko,무작위 아이템 포함,no,"Draft Korean rendering of the label; verify against store pages"
+label,nl,inclusief willekeurige items,no,"Draft; verify against PEGI Dutch wording"
+label,fr,inclut des éléments aléatoires,no,"Draft; verify against PEGI French wording"
+label,de,enthält zufällige objekte,no,"Draft; verify against USK/PEGI German wording"
+pity,en,pity,no,
+pity,en,guaranteed,no,
+pity,en,guarantee,no,
+pity,ko,천장,no,"ceiling (pity system)"
+pity,ko,확정,no,"guaranteed"
+pity,nl,gegarandeerd,no,
+pity,fr,garanti,no,
+pity,de,garantiert,no,
+percent,any,"\d{1,3}(?:[.,]\d+)?\s?%",yes,"Numeric rate"
+price,any,"[₩£$€]\s?\d|\d\s?(?:원|krw|eur|gbp|usd)\b",yes,"Real-money price near the odds"

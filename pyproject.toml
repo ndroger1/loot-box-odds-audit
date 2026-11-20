@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lootaudit"
+version = "0.1.0"
+description = "Loot box odds disclosure audit (SDS 570 capstone)"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+
+[tool.setuptools]
+packages = [
+    "scrapers",
+    "scrapers.charts",
+    "scrapers.store_pages",
+    "scrapers.publisher",
+    "coding",
+    "analysis",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

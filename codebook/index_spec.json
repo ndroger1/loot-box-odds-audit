@@ -1,0 +1,19 @@
+{
+  "_status": "DRAFT - proposed by Claude, not yet approved by Nick. The codebook says to ask before changing definitions; review and edit these components before using the index in any result.",
+  "name": "Public Disclosure Index",
+  "range": [0, 10],
+  "applies_to": "units with lootbox_present = yes",
+  "components": [
+    {"id": "disclosed",        "points": 1, "column": "odds_disclosed",           "yes_if": "yes"},
+    {"id": "on_store_page",    "points": 1, "column": "store_odds_numeric",       "yes_if": "yes"},
+    {"id": "within_2_clicks",  "points": 1, "column": "clicks_to_odds",           "max": 2, "store_page_counts_as": 0},
+    {"id": "within_1_click",   "points": 1, "column": "clicks_to_odds",           "max": 1, "store_page_counts_as": 0},
+    {"id": "market_language",  "points": 1, "column": "odds_in_market_language",  "yes_if": "yes"},
+    {"id": "price_linked",     "points": 1, "column": "odds_price_linked",        "yes_if": "yes"},
+    {"id": "pity_disclosed",   "points": 1, "column": "pity_disclosed",           "yes_if": "yes"},
+    {"id": "store_label",      "points": 1, "column": "store_label_random_items", "yes_if": "yes"},
+    {"id": "multiple_rates",   "points": 1, "column": "rates_count",              "min": 2},
+    {"id": "full_rate_table",  "points": 1, "column": "rates_count",              "min": 5}
+  ],
+  "unknown_handling": "pdi is computed only when no component is unknown. pdi_min treats unknown components as 0 and pdi_max as 1, for sensitivity checks."
+}

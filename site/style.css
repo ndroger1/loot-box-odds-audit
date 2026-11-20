@@ -1,0 +1,53 @@
+:root {
+  --bg: #fcfcfb;
+  --surface: #ffffff;
+  --text: #0b0b0b;
+  --muted: #52514e;
+  --border: #e4e3df;
+  --accent: #2a78d6;
+  --yes: #0b6b3a;
+  --no: #a12a2a;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1a1a19; --surface: #232322; --text: #f0efec; --muted: #c3c2b7;
+    --border: #3a3a38; --accent: #3987e5; --yes: #6fd39b; --no: #f08a8a;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1a1a19; --surface: #232322; --text: #f0efec; --muted: #c3c2b7;
+  --border: #3a3a38; --accent: #3987e5; --yes: #6fd39b; --no: #f08a8a;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+header, main, footer { max-width: 72rem; margin: 0 auto; padding: 0 16px; }
+header { padding-top: 2rem; }
+h1 { margin: 0 0 .25rem; font-size: 2rem; }
+.lede { color: var(--muted); max-width: 46rem; }
+nav { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1rem 0 2rem; }
+a { color: var(--accent); }
+section { margin-bottom: 2.5rem; }
+.status, .note, #count { color: var(--muted); font-size: .9rem; }
+
+.filters { display: flex; flex-wrap: wrap; gap: .75rem 1.25rem; margin-bottom: .75rem; }
+.filters label { display: flex; flex-direction: column; font-size: .85rem; color: var(--muted); }
+input, select {
+  font: inherit; color: var(--text); background: var(--surface);
+  border: 1px solid var(--border); border-radius: 6px; padding: .35rem .5rem; min-width: 9rem;
+}
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; }
+table { border-collapse: collapse; width: 100%; font-size: .9rem; background: var(--surface); }
+th, td { padding: .5rem .65rem; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+td:first-child { white-space: normal; min-width: 12rem; }
+th { position: sticky; top: 0; background: var(--surface); cursor: pointer; user-select: none; }
+th[aria-sort="ascending"]::after { content: " ▲"; }
+th[aria-sort="descending"]::after { content: " ▼"; }
+.v-yes { color: var(--yes); font-weight: 600; }
+.v-no { color: var(--no); font-weight: 600; }
+.v-unknown, .v-not_applicable { color: var(--muted); }
+footer { color: var(--muted); font-size: .85rem; padding-bottom: 2rem; }

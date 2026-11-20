@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Loot Box Odds Audit</title>
+  <meta name="description" content="How top-grossing games show loot box odds in South Korea, the UK, the US, and Belgium.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Loot Box Odds Audit</h1>
+    <p class="lede">How top-grossing video games show the odds of their loot boxes to players in four countries with different rules.</p>
+    <nav>
+      <a href="#results">Results table</a>
+      <a href="explainer.html">Explainer for parents and players</a>
+      <a href="https://github.com/ndroger1/loot-box-odds-audit">Code and data</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="about">
+      <h2>What this is</h2>
+      <p>On one snapshot date, the best-selling games on the iPhone App Store, Steam, PlayStation Store, Xbox Store and Nintendo eShop were collected for South Korea (where showing odds is required by law), the United Kingdom (industry guidelines), the United States (platform rules and FTC enforcement) and Belgium (paid loot boxes treated as gambling). For each game, automated checks looked for a loot box label and for published odds on the store page and the publisher's website.</p>
+      <p class="status" id="status">Loading results…</p>
+    </section>
+
+    <section id="results">
+      <h2>Results table</h2>
+      <div class="filters" role="search">
+        <label>Search titles <input type="search" id="q" placeholder="e.g. a game name"></label>
+        <label>Market
+          <select id="market"><option value="">All</option><option>KR</option><option>GB</option><option>US</option><option>BE</option></select>
+        </label>
+        <label>Platform
+          <select id="platform"><option value="">All</option><option>ios</option><option>steam</option><option>playstation</option><option>xbox</option><option>nintendo</option></select>
+        </label>
+        <label>Odds shown
+          <select id="disclosed"><option value="">All</option><option>yes</option><option>no</option><option>unknown</option><option>not_applicable</option></select>
+        </label>
+      </div>
+      <p id="count" aria-live="polite"></p>
+      <div class="table-wrap">
+        <table id="table">
+          <thead><tr>
+            <th data-key="title">Title</th>
+            <th data-key="market">Market</th>
+            <th data-key="platform">Platform</th>
+            <th data-key="rank">Rank</th>
+            <th data-key="lootbox_present">Loot boxes</th>
+            <th data-key="odds_disclosed">Odds shown</th>
+            <th data-key="odds_placement">Where</th>
+            <th data-key="clicks_to_odds">Clicks</th>
+            <th data-key="pdi">Index (0–10)</th>
+            <th>Archived page</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="note">“Unknown” means the collected pages didn't settle the question; nothing is guessed. Click a column heading to sort.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>SDS 570 capstone, Arizona State University. Code: MIT. Data: CC BY 4.0.</p>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -25,7 +25,11 @@ SDS 570 capstone, Arizona State University.
 
 | Folder | Contents |
 |---|---|
-| `scrapers/` | Chart, store-page, and publisher-site collectors |
+| `config/` | Store endpoints, terms-of-use flags, publisher seed list |
+| `scrapers/` | Chart, store-page, and publisher-site collectors; Wayback archiving |
+| `coding/` | Keyword matching, coding rules, Public Disclosure Index, validation |
+| `analysis/` | Statistical tests (RQ1–RQ3) and figures |
+| `tests/` | Offline tests on made-up inputs (`pytest`) |
 | `data/raw/` | Private HTML and captures (not published; gitignored) |
 | `data/interim/` | Intermediate files between collection and coding |
 | `data/processed/` | Coded dataset (CSV) and data dictionary |
@@ -42,11 +46,13 @@ SDS 570 capstone, Arizona State University.
 python -m venv .venv
 # Windows: .venv\Scripts\activate    macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
+pip install -e .
 playwright install chromium
-cp .env.example .env    # then fill in your contact address
+cp .env.example .env    # then fill in your contact address and snapshot date
+pytest                  # offline checks, no network
 ```
 
-Run the notebooks in `notebooks/` in numeric order, top to bottom. Each one reads from the outputs of the one before it.
+Run the notebooks in `notebooks/` in numeric order, top to bottom. Each one reads from the outputs of the one before it. The same steps can be run from the command line with `python run_pipeline.py <step>` (run it with no step to see the list).
 
 ## Data collection ethics
 

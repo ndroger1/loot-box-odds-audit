@@ -1,0 +1,46 @@
+{
+  "_note": "Endpoints and store pages used by the collectors. 'verified' must be set to true by hand after you confirm, during the week 3 five-title test, that the endpoint works and its terms allow automated access. Collectors refuse to run a source whose 'terms_allow_automation' is not true.",
+
+  "ios": {
+    "chart_url": "https://itunes.apple.com/{country}/rss/topgrossingapplications/limit={limit}/genre=6014/json",
+    "chart_note": "Apple's legacy iTunes RSS top-grossing feed, games genre (6014). Apple has retired some legacy feeds; if this returns nothing, use a chart tracker export (see config/README.md).",
+    "lookup_url": "https://itunes.apple.com/lookup",
+    "verified": false,
+    "terms_allow_automation": null
+  },
+
+  "steam": {
+    "chart_url": "https://api.steampowered.com/IStoreTopSellersService/GetWeeklyTopSellers/v1/",
+    "chart_note": "Steam's weekly top sellers by country. Record chart_scope = 'country' when country_code is honoured, otherwise 'global'.",
+    "appdetails_url": "https://store.steampowered.com/api/appdetails",
+    "verified": false,
+    "terms_allow_automation": null
+  },
+
+  "playstation": {
+    "chart_pages": {"KR": null, "GB": null, "US": null, "BE": null},
+    "item_selector": null,
+    "title_selector": null,
+    "link_selector": null,
+    "verified": false,
+    "terms_allow_automation": null
+  },
+
+  "xbox": {
+    "chart_pages": {"KR": null, "GB": null, "US": null, "BE": null},
+    "item_selector": null,
+    "title_selector": null,
+    "link_selector": null,
+    "verified": false,
+    "terms_allow_automation": null
+  },
+
+  "nintendo": {
+    "chart_pages": {"KR": null, "GB": null, "US": null, "BE": null},
+    "item_selector": null,
+    "title_selector": null,
+    "link_selector": null,
+    "verified": false,
+    "terms_allow_automation": null
+  }
+}

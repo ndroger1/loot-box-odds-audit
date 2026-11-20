@@ -32,6 +32,11 @@ MARKET_LANGUAGES = {
     "BE": ["nl", "fr", "de"],
 }
 
+# Storefront country and language parameters per market
+STEAM_LANGUAGE = {"KR": "koreana", "GB": "english", "US": "english", "BE": "dutch"}
+# Belgium has three official languages; store text is also collected in these.
+STEAM_EXTRA_LANGUAGES = {"BE": ["french", "german"]}
+
 # Every collected record must carry these fields
 REQUIRED_RECORD_FIELDS = [
     "snapshot_date",
