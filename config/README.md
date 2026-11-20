@@ -4,7 +4,7 @@
 
 Endpoints and store pages for each platform. Before collecting from a source:
 
-1. Read the store's terms of use. Set `terms_allow_automation` to `true` only if they allow automated access to public pages. If they don't, leave it `false` and use the chart-tracker fallback below. Collectors refuse to run a source unless this is `true`.
+1. Read the store's terms of use and record the decision in [`terms_review.md`](terms_review.md) (draft review of all five stores, 2026-11-20). Set `terms_allow_automation` to `true` only if they allow automated access to public pages. If they don't, leave it `false` and use the chart-tracker fallback below. Collectors refuse to run a source unless this is `true`.
 2. Run the week 3 five-title test. If the endpoint returns what the code expects, set `verified` to `true`.
 
 For PlayStation, Xbox, and Nintendo, fill in each market's best-seller page URL in `chart_pages`, and the CSS selectors for a chart entry, its title, and its product link. These are left blank on purpose: the page addresses and layouts differ by region and change often, so they have to be checked in a browser on the day.
