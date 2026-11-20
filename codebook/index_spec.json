@@ -15,5 +15,5 @@
     {"id": "multiple_rates",   "points": 1, "column": "rates_count",              "min": 2},
     {"id": "full_rate_table",  "points": 1, "column": "rates_count",              "min": 5}
   ],
-  "unknown_handling": "pdi is computed only when no component is unknown. pdi_min treats unknown components as 0 and pdi_max as 1, for sensitivity checks."
+  "unknown_handling": "pdi is computed only when no component is unknown. pdi_min treats unknown components as 0 and pdi_max as 1, for sensitivity checks. Components that describe the odds (market_language, price_linked, pity_disclosed) are coded not_applicable when odds are not disclosed, which scores 0, so a title that hides its odds still gets a score (rules 0.2-draft)."
 }

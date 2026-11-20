@@ -1,6 +1,6 @@
 # Codebook (draft)
 
-> **Status: DRAFT.** These definitions were written with the first version of the coding rules (`coding/rules.py`, version `0.1-draft`). Review and approve them before the snapshot is coded. Log every change in `rule_revisions.md`.
+> **Status: DRAFT.** These definitions match coding rules version `0.2-draft` (`coding/rules.py`). Review and approve them before the snapshot is coded. Log every change in `rule_revisions.md`.
 
 Unit of analysis: one title on one platform in one market (one row of `data/interim/charts.csv`).
 
@@ -42,9 +42,19 @@ A publisher page counts for a title only if the title's `title_key` appears in t
 | `pub_odds_page` | A page about the title contains an odds term |
 | `pub_odds_numeric` | Such a page has an odds term within 300 characters of a percentage |
 | `clicks_to_odds` | Crawl depth (links from the start page, breadth-first) of the shallowest page with numeric odds |
-| `odds_price_linked` | A real-money price (₩, £, $, €, 원, KRW, EUR, GBP, USD) appears near the numeric odds |
-| `odds_in_market_language` | The odds page's `<html lang>` matches a language of the market (`ko`; `en`; `nl`/`fr`/`de`). Unknown if the page doesn't declare a language |
-| `pity_disclosed` | A pity or guarantee term appears on a numeric-odds page |
+| `pub_price`, `pub_language`, `pub_pity` | Price, language, and pity evidence from the publisher's numeric-odds pages (see "Codes that describe the odds"). Blank if the crawl found no numeric odds; `unknown` if not crawled |
+
+The store-page equivalents are `store_price`, `store_language`, and `store_pity`.
+
+## Codes that describe the odds
+
+These three are coded from every source that shows numeric odds (store page and publisher site), then combined: `yes` if any source says yes; `unknown` if a source that might show odds wasn't collected; otherwise `no`. When odds are not disclosed they are `not_applicable`.
+
+| Variable | `yes` when |
+|---|---|
+| `odds_price_linked` | A real-money price (₩, £, $, €, 원, KRW, EUR, GBP, USD) appears within 300 characters of an odds term that has a percentage beside it |
+| `odds_in_market_language` | The odds are in a language of the market (KR: Korean; GB/US: English; BE: Dutch, French, or German). Publisher pages: the page's declared `<html lang>`, or, if none, the language of the odds terms found beside the rates. Store pages: the language of those odds terms |
+| `pity_disclosed` | A pity or guarantee term appears within 300 characters of an odds term that has a percentage beside it |
 
 ## Combined codes
 
@@ -67,7 +77,7 @@ Flags for the manual check against the Gray et al. (2024) ontology. They are can
 
 ## Public Disclosure Index
 
-Defined in `index_spec.json` (draft). `pdi` is computed only for units with loot boxes and no unknown components; `pdi_min` and `pdi_max` bound it when some components are unknown.
+Defined in `index_spec.json` (draft). `pdi` is computed only for units with loot boxes and no unknown components; `pdi_min` and `pdi_max` bound it when some components are unknown. A `not_applicable` component scores 0, so titles that don't disclose odds still receive a score.
 
 ## Known limitations
 

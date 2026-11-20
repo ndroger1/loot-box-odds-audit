@@ -14,11 +14,13 @@ from pathlib import Path
 
 DICTIONARY = Path(__file__).resolve().parents[1] / "codebook" / "keyword_dictionary.csv"
 HANGUL = re.compile(r"[가-힣]")
+RADIUS = 300  # characters either side of a term that count as "near" it
 
 
 @lru_cache(maxsize=1)
-def patterns() -> dict[str, list[tuple[str, re.Pattern]]]:
-    out: dict[str, list[tuple[str, re.Pattern]]] = {}
+def patterns() -> dict[str, list[tuple[str, re.Pattern, str]]]:
+    """category -> list of (term, compiled pattern, language code)."""
+    out: dict[str, list[tuple[str, re.Pattern, str]]] = {}
     with DICTIONARY.open(encoding="utf-8") as fh:
         for row in csv.DictReader(fh):
             term = row["term"]
@@ -28,29 +30,34 @@ def patterns() -> dict[str, list[tuple[str, re.Pattern]]]:
                 rx = re.compile(re.escape(term), re.I)
             else:
                 rx = re.compile(r"(?<!\w)" + re.escape(term) + r"(?!\w)", re.I)
-            out.setdefault(row["category"], []).append((term, rx))
+            out.setdefault(row["category"], []).append((term, rx, row["language"].strip()))
     return out
 
 
 def find_terms(text: str) -> dict[str, list[str]]:
     """Return the dictionary terms found in text, by category."""
     text = text or ""
-    found = {cat: sorted({term for term, rx in pats if rx.search(text)})
+    found = {cat: sorted({term for term, rx, _ in pats if rx.search(text)})
              for cat, pats in patterns().items()}
     for cat in ("odds", "lootbox", "label", "pity", "percent", "price"):
         found.setdefault(cat, [])
     return found
 
 
-def windows(text: str, category: str, radius: int = 300) -> list[str]:
+def windows(text: str, category: str, radius: int = RADIUS) -> list[str]:
     """Text snippets around each match of a category, for proximity rules."""
+    return [snippet for snippet, _ in windows_with_language(text, category, radius)]
+
+
+def windows_with_language(text: str, category: str, radius: int = RADIUS) -> list[tuple[str, str]]:
+    """(snippet, language of the matched term) around each match of a category."""
     text = text or ""
-    snippets = []
-    for _, rx in patterns().get(category, []):
+    out = []
+    for _, rx, lang in patterns().get(category, []):
         for m in rx.finditer(text):
-            snippets.append(text[max(0, m.start() - radius): m.end() + radius])
-    return snippets
+            out.append((text[max(0, m.start() - radius): m.end() + radius], lang))
+    return out
 
 
 def count_matches(text: str, category: str) -> int:
-    return sum(len(rx.findall(text or "")) for _, rx in patterns().get(category, []))
+    return sum(len(rx.findall(text or "")) for _, rx, _ in patterns().get(category, []))

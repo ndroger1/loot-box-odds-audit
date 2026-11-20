@@ -70,6 +70,53 @@ def test_build_codes_store_and_publisher():
     assert np.isnan(us["pdi"])
 
 
+def test_hidden_and_store_only_odds_get_scores():
+    """Regression for rules 0.1: these cases had a missing index score."""
+    charts = _charts([
+        {"market": "KR", "platform": "ios", "rank": 1, "title": "Hidden Gacha", "store_id": "1"},
+        {"market": "GB", "platform": "steam", "rank": 1, "title": "Store Odds Game", "store_id": "2"},
+        {"market": "BE", "platform": "steam", "rank": 1, "title": "Store Odds Game", "store_id": "2"},
+    ])
+    english_odds = ("Card packs! Drop rates: Legendary 1%, Epic 9%, Common 90%. "
+                    "Each pack costs £2.99.")
+    store = [
+        {"market": "KR", "platform": "ios", "store_id": "1", "label_text": "Includes Random Items",
+         "description": "가챠 게임", "evidence_ref": "a"},
+        {"market": "GB", "platform": "steam", "store_id": "2", "label_text": "", "description": english_odds,
+         "evidence_ref": "b"},
+        {"market": "BE", "platform": "steam", "store_id": "2", "label_text": "", "description": english_odds,
+         "evidence_ref": "c"},
+    ]
+    pages = [
+        {"seed_id": "hidden.com", "market": "KR", "url": "https://hidden.com/", "depth": 0,
+         "page_title": "Hidden Gacha", "html_lang": "ko", "odds_terms": [], "lootbox_terms": [],
+         "text": "Hidden Gacha 공식 사이트", "evidence_ref": "d"},
+        {"seed_id": "store.com", "market": "GB", "url": "https://store.com/", "depth": 0,
+         "page_title": "Store Odds Game", "html_lang": "en", "odds_terms": [], "lootbox_terms": [],
+         "text": "Store Odds Game home", "evidence_ref": "e"},
+        {"seed_id": "store.com", "market": "BE", "url": "https://store.com/", "depth": 0,
+         "page_title": "Store Odds Game", "html_lang": "en", "odds_terms": [], "lootbox_terms": [],
+         "text": "Store Odds Game home", "evidence_ref": "f"},
+    ]
+    seeds = {"ios:1": "hidden.com", "steam:2": "store.com"}
+    df = add_index(build(charts, store, pages, seeds, {}))
+    hidden, gb, be = df.iloc[0], df.iloc[1], df.iloc[2]
+
+    assert hidden["odds_disclosed"] == "no"
+    assert hidden["odds_in_market_language"] == "not_applicable"
+    assert hidden["pdi"] == 1  # only the store label
+
+    assert gb["odds_placement"] == "store_page"
+    assert gb["odds_price_linked"] == "yes" and gb["odds_in_market_language"] == "yes"
+    assert gb["pity_disclosed"] == "no"
+    # disclosed, on store, <=2 clicks, <=1 click, language, price, 3 rates (>=2)
+    assert gb["pdi"] == 7
+
+    assert be["odds_in_market_language"] == "no"  # English-only odds in Belgium
+    assert be["dp_language_barrier_candidate"] == "yes"
+    assert be["pdi"] == 6
+
+
 def test_index_bounds():
     row = {"lootbox_present": "yes", "odds_disclosed": "yes", "store_odds_numeric": "no",
            "clicks_to_odds": 1, "odds_in_market_language": "unknown", "odds_price_linked": "no",
